@@ -1,11 +1,14 @@
-const express = require('express');
-const connect = require ('./config/database');
-const Comment = require('./models/comment');
-const TweetRepository = require('./repositories/tweet-repository');
-const app = express();
-const tweetRepository = new TweetRepository();
+import express from 'express';
+import {connect} from './config/database.js'
+import bodyParser from 'body-parser';
+import apiRoutes from './routes/index.js';
 
-app.listen(3000,async()=>{
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use('/api',apiRoutes);
+
+app.listen(3000, async () => {
     console.log('server listening to port 3000');
     await connect();
     console.log('mongodb connected');
@@ -19,7 +22,6 @@ app.listen(3000,async()=>{
     // const comment = await Comment.create({content:"second comment"});
     // tweet.comments.push(comment);
     // await tweet.save();
-    const tweets = await tweetRepository.getAll(3,0);
-    console.log(tweets[0].contentWithEmail);
+    
 });
 
