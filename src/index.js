@@ -2,6 +2,12 @@ import express from 'express';
 import {connect} from './config/database.js'
 import bodyParser from 'body-parser';
 import apiRoutes from './routes/index.js';
+import UserRepository from './repositories/user-repository.js';
+import TweetRepository from './repositories/tweet-repository.js';
+import LikeService from './services/like-service.js';
+const userRepository = new UserRepository();
+const tweetRepository = new TweetRepository();
+const likeService = new LikeService();
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,6 +28,10 @@ app.listen(3000, async () => {
     // const comment = await Comment.create({content:"second comment"});
     // tweet.comments.push(comment);
     // await tweet.save();
-    
+    // const tweets = await tweetRepository.getAll(10,0);
+    // console.log(tweets[0].id);
+    // const users = await userRepository.getAll();
+    // console.log(users[0].id);
+    // await likeService.toggleLike(tweets[0].id,'Tweet',users[0].id);
 });
 

@@ -24,7 +24,7 @@ class TweetRepository{
 
     async get(id){
         try {
-            const tweet = await Tweet.findById(id);
+            const tweet = await Tweet.findById(id).populate({path:'likes'});
             return tweet;
         } catch (error) {
             console.log('something went wrong in the repository layer');
@@ -54,7 +54,7 @@ class TweetRepository{
 
     async getAll(limit,offset){
         try {
-            const tweets = await Tweet.find().skip(offset).limit(limit).populate({path:'comments'});
+            const tweets = await Tweet.find().skip(offset).limit(limit);
             return tweets;
         } catch (error) {
             console.log('something went wrong in the repository layer');

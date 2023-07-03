@@ -21,6 +21,6 @@ const createTweet = async (req,res) =>{
     }
 }
 
-export default {
+export default  {
     createTweet
 }
