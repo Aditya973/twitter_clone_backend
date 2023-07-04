@@ -10,17 +10,37 @@ const createTweet = async (req,res) =>{
             sucess:true,
             message:'tweet created',
             err:{}
-        })
+        });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             data:{},
             success:false,
             message: 'something went wrong on creating the tweet',
             err:error
+        });
+    }
+}
+
+const getTweet = async (req,res) => {
+    try {
+        const tweet = await tweetService.getWithComments(req.params.id);
+        return res.status(200).json({
+            data:tweet,
+            success: true,
+            message: 'successfully fetched tweets',
+            err: {}
         })
+    } catch (error) {
+        return res.status(500).json({
+            data:{},
+            success:false,
+            message: 'something went wrong on creating the tweet',
+            err:error
+        });
     }
 }
 
 export default  {
-    createTweet
+    createTweet,
+    getTweet
 }

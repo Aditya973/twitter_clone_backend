@@ -2,17 +2,17 @@ import express from 'express';
 import {connect} from './config/database.js'
 import bodyParser from 'body-parser';
 import apiRoutes from './routes/index.js';
-import UserRepository from './repositories/user-repository.js';
-import TweetRepository from './repositories/tweet-repository.js';
-import LikeService from './services/like-service.js';
-const userRepository = new UserRepository();
-const tweetRepository = new TweetRepository();
-const likeService = new LikeService();
+import passport from 'passport';
+import { passportAuth } from './config/jwt-middleware.js';
+
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use('/api',apiRoutes);
+
+app.use(passport.initialize());
+passportAuth(passport);
 
 app.listen(3000, async () => {
     console.log('server listening to port 3000');
